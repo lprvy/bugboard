@@ -6,6 +6,19 @@ I built it to practise the whole path a bug takes, from the form a tester fills 
 
 ![CI](https://github.com/lprvy/bugboard/actions/workflows/ci.yml/badge.svg)
 
+![The board: counts by status, filters, and bugs with their severity](docs/screenshots/board.png)
+
+<table>
+  <tr>
+    <td><img src="docs/screenshots/bug-detail.png" alt="A bug's page: description, steps to reproduce, status update and delete"></td>
+    <td><img src="docs/screenshots/report-bug.png" alt="The report form: title, severity, what happened, steps to reproduce"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>Bug details</sub></td>
+    <td align="center"><sub>Reporting a bug</sub></td>
+  </tr>
+</table>
+
 ## Stack
 
 | Layer | Tech |
