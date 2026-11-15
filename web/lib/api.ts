@@ -23,10 +23,21 @@ export interface BugStats {
 
 const API_URL = process.env.API_URL ?? "http://localhost:4000";
 
+export interface ValidationIssue {
+  path?: (string | number)[];
+  message: string;
+}
+
 export class ApiError extends Error {
-  constructor(public status: number, message: string) {
+  constructor(public status: number, message: string, public details: ValidationIssue[] = []) {
     super(message);
   }
+}
+
+/** A message a person can act on: the API's validation issues if there are any, else its error. */
+export function describeApiError(err: ApiError): string {
+  if (err.details.length === 0) return err.message;
+  return err.details.map((issue) => issue.message).join("; ");
 }
 
 export async function api<T>(path: string, init?: RequestInit): Promise<T> {
@@ -37,7 +48,7 @@ export async function api<T>(path: string, init?: RequestInit): Promise<T> {
   });
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
-    throw new ApiError(res.status, body.error ?? res.statusText);
+    throw new ApiError(res.status, body.error ?? res.statusText, Array.isArray(body.details) ? body.details : []);
   }
   return (res.status === 204 ? undefined : await res.json()) as T;
 }

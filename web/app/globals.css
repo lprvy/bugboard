@@ -65,3 +65,5 @@ form.stack label { display: grid; gap: 4px; font-weight: 600; }
 pre { white-space: pre-wrap; font-family: inherit; margin: 0; }
 .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .error { border-color: var(--critical); color: var(--critical); }
+.form-error { margin: -4px 0 0; color: var(--critical); font-size: 0.9rem; }
+button:disabled { opacity: 0.6; cursor: progress; }
