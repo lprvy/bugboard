@@ -4,7 +4,7 @@ A small, full-stack bug tracker: report bugs with steps to reproduce, filter the
 
 I built it to practise the whole path a bug takes, from the form a tester fills in to the row in the database, and to keep the API honest with tests at several levels.
 
-![CI](https://github.com/lprvy/bugboard/actions/workflows/ci.yml/badge.svg)
+[![CI](https://github.com/lprvy/bugboard/actions/workflows/ci.yml/badge.svg)](https://github.com/lprvy/bugboard/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 ![The board: counts by status, filters, and bugs with their severity](docs/screenshots/board.png)
 
