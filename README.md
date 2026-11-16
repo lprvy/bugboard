@@ -26,7 +26,7 @@ I built it to practise the whole path a bug takes, from the form a tester fills 
 | Frontend | Next.js 15 (App Router, Server Actions), React 19, TypeScript |
 | Backend | Node.js, Express, TypeScript, Zod validation |
 | Database | PostgreSQL 16 (with an in-memory fallback for quick local runs) |
-| Tests | Jest + Supertest (unit/HTTP), Postman collection run with Newman (contract) |
+| Tests | Jest + Supertest (unit/HTTP), Node test runner (web client), Postman collection run with Newman (contract) |
 | Ops | Docker, Docker Compose, GitHub Actions |
 
 ## Architecture
@@ -75,6 +75,7 @@ Invalid input returns `400` with the validation details; unknown ids return `404
 
 ```bash
 cd api && npm test                                   # 22 Jest tests
+cd web && npm test                                   # 7 tests for the web client (node:test, no extra deps)
 npx newman run postman/bugboard.postman_collection.json   # needs the API running
 ```
 
@@ -82,6 +83,7 @@ What is covered:
 
 - every route, including the unhappy paths (bad JSON, unknown fields, empty patches, too-long titles, non-numeric ids)
 - the PostgreSQL adapter with a mocked `pg` pool, checking that every query is parameterized (no SQL injection through filters)
+- the web client's API helper with a mocked `fetch`: request shape, 204 responses, validation details on a 400, a non-JSON error body
 - CI runs the Newman collection against a **real PostgreSQL** service container
 
 ## License

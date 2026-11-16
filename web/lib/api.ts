@@ -29,8 +29,16 @@ export interface ValidationIssue {
 }
 
 export class ApiError extends Error {
-  constructor(public status: number, message: string, public details: ValidationIssue[] = []) {
+  // Plain fields rather than constructor parameter properties, so Node can run this file by
+  // stripping its types (the unit tests do).
+  status: number;
+  details: ValidationIssue[];
+
+  constructor(status: number, message: string, details: ValidationIssue[] = []) {
     super(message);
+    this.name = "ApiError";
+    this.status = status;
+    this.details = details;
   }
 }
 
@@ -53,4 +61,4 @@ export async function api<T>(path: string, init?: RequestInit): Promise<T> {
   return (res.status === 204 ? undefined : await res.json()) as T;
 }
 
-export const label = (value: string) => value.replace("_", " ");
+export const label = (value: string) => value.replaceAll("_", " ");
